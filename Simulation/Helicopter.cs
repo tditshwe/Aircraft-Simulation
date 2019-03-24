@@ -5,7 +5,7 @@
         private WeatherTower WeatherTower;
         Simulator Simulation;
 
-        Helicopter(string name, Coordinates coordinates): base(name, coordinates)
+        internal Helicopter(string name, Coordinates coordinates): base(name, coordinates)
         {
             Simulation = Simulator.GetInstance();
         }

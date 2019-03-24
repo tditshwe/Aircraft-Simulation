@@ -5,7 +5,7 @@
         private WeatherTower WeatherTower;
         Simulator Simulation;
 
-        Baloon(string name, Coordinates coordinates) : base(name, coordinates)
+        internal Baloon(string name, Coordinates coordinates) : base(name, coordinates)
         {
             Simulation = Simulator.GetInstance();
         }
@@ -44,7 +44,7 @@
             //Aircraft landing
             if (Coordinates.Height == 0)
             {
-                Simulation.UnregisterAircraft("Helicopter", Name, Id);
+                Simulation.UnregisterAircraft("Baloon", Name, Id);
                 WeatherTower.Unregister(this);
             }
         }

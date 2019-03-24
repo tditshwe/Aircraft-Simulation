@@ -9,7 +9,7 @@
             return provider.GetCurrentWeather(coordinates);
         }
 
-        void ChangeWeather()
+        public void ChangeWeather()
         {
             ConditionsChanged();
         }
