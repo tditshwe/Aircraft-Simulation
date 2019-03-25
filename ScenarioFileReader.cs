@@ -10,8 +10,10 @@ namespace AircraftSimulation
     public class ScenarioFileReader
     {
         private readonly StreamReader Reader;
-        private int _triggers;
-        private WeatherTower _weatherTower;
+        private AircraftFactory Factory;
+        private Tower Tower;
+        public int Triggers { get; private set; }
+        public WeatherTower WeatherTower { get; private set; }
 
         public ScenarioFileReader(string filename)
         {
@@ -25,6 +27,9 @@ namespace AircraftSimulation
             int lineCounter = 1;
             Regex rx;
             MatchCollection matches;
+            Factory = new AircraftFactory();
+            Tower = new WeatherTower();
+            WeatherTower = (WeatherTower)Tower;
 
             while ((line = Reader.ReadLine()) != null)
 	        {
@@ -45,7 +50,7 @@ namespace AircraftSimulation
                         matches = rx.Matches(line);
 
                         if (matches.Count == 1)
-                            _triggers = Convert.ToInt32(str[0]);
+                            Triggers = Convert.ToInt32(str[0]);
                         else
                             throw new LineNotPositiveIntegerException("First line must be a positive integer");
                     }
@@ -68,10 +73,7 @@ namespace AircraftSimulation
          * Validate the format of a line that describes an aircraft
          */
         private void ValidateFormat(string[] lineParams)
-        {
-            AircraftFactory factory = new AircraftFactory();
-            Tower tower = new WeatherTower();
-            _weatherTower = (WeatherTower)tower;
+        {          
             //Validate type
             ValidateParam(lineParams[0], "(Baloon|JetPlane|Helicopter)", "Invalide aircraft type");
             //Validate name
@@ -87,9 +89,9 @@ namespace AircraftSimulation
             int latitude = Convert.ToInt32(lineParams[3]);
             int height = Convert.ToInt32(lineParams[4]);
 
-            Flyable flyable = factory.NewAircraft(lineParams[0], lineParams[1], longitude, latitude, height);
-            tower.Register(flyable);
-            flyable.RegisterTower(_weatherTower);
+            Flyable flyable = Factory.NewAircraft(lineParams[0], lineParams[1], longitude, latitude, height);
+            Tower.Register(flyable);
+            flyable.RegisterTower(WeatherTower);
         }
 
         /*
@@ -107,22 +109,6 @@ namespace AircraftSimulation
         public void Close()
         {
             Reader.Close();
-        }
-
-        public WeatherTower WeatherTower
-        {
-            get
-            {
-                return _weatherTower;
-            }
-        }
-
-        public int Triggers
-        {
-            get
-            {
-                return _triggers;
-            }
-        }
+        }      
     }
 }
