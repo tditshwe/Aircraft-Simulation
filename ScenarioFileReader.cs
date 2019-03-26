@@ -73,7 +73,11 @@ namespace AircraftSimulation
          * Validate the format of a line that describes an aircraft
          */
         private void ValidateFormat(string[] lineParams)
-        {          
+        {   
+            //Only allow 5 parameters
+            if (lineParams.Length != 5)
+                throw new InvalidLineFormatException("Aircraft description must consist of 5 parameters");
+
             //Validate type
             ValidateParam(lineParams[0], "(Baloon|JetPlane|Helicopter)", "Invalide aircraft type");
             //Validate name

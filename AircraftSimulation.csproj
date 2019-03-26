@@ -43,15 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Simulation\AircraftFactory.cs" />
+    <Compile Include="InvalidLineFormatException.cs" />
+    <Compile Include="LineNotPositiveIntegerException.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScenarioFileReader.cs" />
     <Compile Include="Simulation\Aircraft.cs" />
+    <Compile Include="Simulation\Baloon.cs" />
     <Compile Include="Simulation\Coordinates.cs" />
     <Compile Include="Simulation\Flyable.cs" />
     <Compile Include="Simulation\Helicopter.cs" />
+    <Compile Include="Simulation\JetPlane.cs" />
     <Compile Include="Simulation\Tower.cs" />
     <Compile Include="Simulation\WeatherProvider.cs" />
     <Compile Include="Simulation\WeatherTower.cs" />
+    <Compile Include="Simulator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
